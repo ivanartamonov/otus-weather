@@ -1,5 +1,3 @@
-function test(msg) {
-  return `Hello,  + ${msg}`;
+export default function sayHello(msg) {
+  return `Hello, ${msg}`;
 }
-
-test("world!");
