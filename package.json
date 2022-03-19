@@ -21,7 +21,11 @@
   },
   "homepage": "https://github.com/ivanartamonov/otus-weather#readme",
   "devDependencies": {
+    "@babel/cli": "^7.17.6",
+    "@babel/core": "^7.17.8",
+    "@babel/preset-env": "^7.16.11",
     "@types/jest": "^27.4.1",
+    "babel-jest": "^27.5.1",
     "eslint": "^8.11.0",
     "eslint-config-airbnb-base": "^15.0.0",
     "eslint-config-prettier": "^8.5.0",
