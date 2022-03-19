@@ -4,7 +4,9 @@
   "description": "OTUS weather app",
   "main": "index.js",
   "scripts": {
-    "test": "jest"
+    "test": "jest",
+    "lint": "eslint src",
+    "lint:fix": "eslint src --fix"
   },
   "repository": {
     "type": "git",
@@ -19,6 +21,9 @@
   "homepage": "https://github.com/ivanartamonov/otus-weather#readme",
   "devDependencies": {
     "@types/jest": "^27.4.1",
+    "eslint": "^8.11.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-plugin-import": "^2.25.4",
     "jest": "^27.5.1"
   }
 }
