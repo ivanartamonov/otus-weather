@@ -5,7 +5,7 @@
     },
     "extends": [
         "airbnb-base",
-        "eslint-config-prettier"
+        "prettier"
     ],
     "parserOptions": {
         "ecmaVersion": "latest",
