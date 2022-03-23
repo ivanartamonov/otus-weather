@@ -1,5 +1,6 @@
 const path = require('path');
 const HtmlWebpackPlugin = require("html-webpack-plugin");
+const BrowserSyncPlugin = require("browser-sync-webpack-plugin");
 
 module.exports = {
   entry: './src/index.js',
@@ -7,8 +8,15 @@ module.exports = {
     path: path.resolve(__dirname, 'public/dist'),
     filename: 'bundle.js',
   },
-  plugins: [new HtmlWebpackPlugin({
-    filename: path.resolve(__dirname, "public/index.html"),
-    template: path.resolve(__dirname, "src/index.html")
-  })],
+  plugins: [
+    new HtmlWebpackPlugin({
+      filename: path.resolve(__dirname, "public/index.html"),
+      template: path.resolve(__dirname, "src/index.html")
+    }),
+    new BrowserSyncPlugin({
+      host: 'localhost',
+      port: 3000,
+      server: { baseDir: ['public'] }
+    })
+  ],
 };
