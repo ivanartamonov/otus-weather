@@ -7,7 +7,9 @@ module.exports = {
   output: {
     path: path.resolve(__dirname, 'public/dist'),
     filename: 'bundle.js',
+    clean: true
   },
+  target: ['web', 'es5'],
   plugins: [
     new HtmlWebpackPlugin({
       filename: path.resolve(__dirname, "public/index.html"),
@@ -19,4 +21,18 @@ module.exports = {
       server: { baseDir: ['public'] }
     })
   ],
+  module: {
+    rules: [
+      {
+        test: /\.js$/,
+        exclude: /(node_modules|bower_components)/,
+        use: {
+          loader: 'babel-loader',
+          options: {
+            presets: ['@babel/preset-env']
+          }
+        }
+      }
+    ]
+  }
 };
