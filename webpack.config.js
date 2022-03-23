@@ -1,6 +1,7 @@
 const path = require('path');
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const BrowserSyncPlugin = require("browser-sync-webpack-plugin");
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
 module.exports = {
   entry: './src/index.js',
@@ -19,7 +20,8 @@ module.exports = {
       host: 'localhost',
       port: 3000,
       server: { baseDir: ['public'] }
-    })
+    }),
+    new MiniCssExtractPlugin()
   ],
   module: {
     rules: [
@@ -32,7 +34,11 @@ module.exports = {
             presets: ['@babel/preset-env']
           }
         }
-      }
+      },
+      {
+        test: /\.css$/i,
+        use: [MiniCssExtractPlugin.loader, "css-loader"],
+      },
     ]
   }
 };
