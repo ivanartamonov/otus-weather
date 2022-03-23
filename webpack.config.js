@@ -4,6 +4,8 @@ const BrowserSyncPlugin = require("browser-sync-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
 
+const mode = process.env.NODE_ENV;
+
 module.exports = {
   entry: './src/index.js',
   output: {
@@ -12,6 +14,7 @@ module.exports = {
     clean: true
   },
   target: ['web', 'es5'],
+  devtool: mode === 'production' ? 'source-map' : 'inline-source-map',
   plugins: [
     new HtmlWebpackPlugin({
       filename: path.resolve(__dirname, "public/index.html"),

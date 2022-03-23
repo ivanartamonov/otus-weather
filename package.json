@@ -8,8 +8,8 @@
     "lint": "prettier --check src && eslint src",
     "lint:fix": "prettier --write src && eslint src --fix",
     "prepare": "husky install",
-    "build": "webpack --mode production",
-    "dev": "webpack --watch --mode development"
+    "build": "webpack --node-env production",
+    "dev": "webpack --watch --node-env development"
   },
   "repository": {
     "type": "git",
