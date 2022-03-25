@@ -6,30 +6,32 @@ const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
 const mode = process.env.NODE_ENV;
 
 module.exports = {
-  entry: './src/index.html',
+  entry: './src/index.js',
   output: {
     path: path.resolve(__dirname, 'public'),
-    filename: 'bundle.js',
+    filename: 'dist/js/bundle.js',
     clean: true
   },
   target: ['web', 'es5'],
   devtool: mode === 'production' ? 'source-map' : 'inline-source-map',
   devServer: {
+    watchFiles: ["./src/*"],
     compress: true,
     port: 9000,
+    open: true,
   },
   plugins: [
     new HtmlWebpackPlugin({
-      filename: path.resolve(__dirname, "public/index.html"),
       template: path.resolve(__dirname, "src/index.html")
     }),
-    new MiniCssExtractPlugin()
+    new MiniCssExtractPlugin({
+      filename: 'dist/styles/[name].css',
+    })
   ],
   optimization: {
     minimizer: [
       `...`,
-      // Don't work on production build
-      //new CssMinimizerPlugin(),
+      new CssMinimizerPlugin(),
     ],
   },
   module: {
@@ -42,7 +44,7 @@ module.exports = {
           options: {
             presets: ['@babel/preset-env']
           }
-        }
+        },
       },
       {
         test: /\.css$/i,
@@ -52,7 +54,7 @@ module.exports = {
         test: /\.(png|jpg|jpeg|svg|gif)$/i,
         type: "asset/resource",
         generator: {
-          filename: "images/[hash][ext]"
+          filename: "dist/images/[hash][ext]"
         }
       },
       {
