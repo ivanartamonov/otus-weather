@@ -9,7 +9,7 @@
     "lint:fix": "prettier --write src && eslint src --fix",
     "prepare": "husky install",
     "build": "webpack --node-env production",
-    "dev": "webpack --watch --node-env development"
+    "dev": "webpack serve --node-env development"
   },
   "repository": {
     "type": "git",

@@ -10,7 +10,56 @@
     <title>Weather App</title>
   </head>
   <body>
-    <h1>Hello, world!</h1>
+    <div id="container">
+      <div class="row weather-panel">
+        <div class="weather-wrapper">
+          <!-- Weather Data -->
+          <div class="weather-data">
+            <img class="weather-data__icon" src="../assets/images/sun.svg" />
+            <p class="weather-data__temp">+9°C</p>
+            <p class="weather-data__city">Kyiv</p>
+          </div>
+
+          <!-- City Search -->
+          <div class="text-field">
+            <div class="text-field__icon">
+              <input
+                class="text-field__input"
+                type="search"
+                name="search"
+                placeholder="Город"
+              />
+              <span class="text-field__aicon">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="16"
+                  height="16"
+                  fill="currentColor"
+                  viewBox="0 0 16 16"
+                >
+                  <path
+                    d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"
+                  />
+                </svg>
+              </span>
+            </div>
+          </div>
+
+          <!-- Previous searches -->
+          <button class="tag-btn">London</button>
+          <button class="tag-btn">New York City</button>
+          <button class="tag-btn">Kyiv</button>
+        </div>
+      </div>
+
+      <div class="row map-panel">Map will be here</div>
+    </div>
+
+    <!--
+    <div id="geo"></div>
+    <div id="city"></div>
+    <div id="temp"></div>
     <img src="../assets/images/cat.jpeg" alt="cat" />
+    -->
   </body>
 </html>
