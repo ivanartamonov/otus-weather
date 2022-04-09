@@ -11,7 +11,7 @@ module.exports = {
   output: {
     path: path.resolve(__dirname, 'public'),
     filename: 'dist/js/bundle.js',
-    clean: true
+    clean: mode === 'production'
   },
   target: ['web', 'es5'],
   devtool: mode === 'production' ? 'source-map' : 'inline-source-map',
