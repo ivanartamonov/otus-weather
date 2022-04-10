@@ -1,4 +1,5 @@
 import weather from "./weather";
+import Map from "./map";
 
 class Page {
   // Root HTML element, from witch we find every other elements
@@ -22,9 +23,12 @@ class Page {
   // LocalStorage object
   storage;
 
+  map;
+
   constructor(rootElement) {
     this.rootElement = rootElement;
     this.storage = window.localStorage;
+    this.map = new Map(this.rootElement.querySelector(".map-panel"));
 
     this.city = this.rootElement.querySelector(".weather-data__city");
     this.t = this.rootElement.querySelector(".weather-data__temp");
@@ -44,6 +48,7 @@ class Page {
     this.city.innerHTML = data.name;
 
     this.renderSearchHistory();
+    this.map.render(data.coord.lat, data.coord.lon);
   }
 
   renderSearchHistory() {
