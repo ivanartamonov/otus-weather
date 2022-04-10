@@ -1,11 +1,8 @@
 const geolocation = {
   getCurrentPosition: () =>
-    new Promise((resolve, reject) => {
-      navigator.geolocation.getCurrentPosition(
-        (res) => resolve(res.coords),
-        (error) => reject(error)
-      );
-    }),
+    fetch("https://get.geojs.io/v1/ip/geo.json").then((response) =>
+      response.json()
+    ),
 };
 
 export default geolocation;
