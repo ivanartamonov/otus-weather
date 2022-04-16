@@ -4,7 +4,7 @@
   "description": "OTUS weather app",
   "private": true,
   "scripts": {
-    "test": "jest",
+    "test": "jest --coverage",
     "lint": "prettier --check src && eslint src",
     "lint:fix": "prettier --write src && eslint src --fix",
     "prepare": "husky install",
