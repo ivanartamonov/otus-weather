@@ -4,7 +4,7 @@ import weather from "./weather";
 import geolocation from "./geolocation";
 import Page from "./page";
 
-const page = new Page(document.getElementById("container"));
+const page = new Page(document.getElementById("app"));
 
 geolocation
   .getCurrentPosition()

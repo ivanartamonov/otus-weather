@@ -1,5 +1,7 @@
 import weather from "./weather";
 import Map from "./map";
+import imgSun from "../assets/images/sun.svg";
+import imgSearch from "../assets/images/search.svg";
 
 class Page {
   // Root HTML element, from witch we find every other elements
@@ -28,18 +30,77 @@ class Page {
   constructor(rootElement) {
     this.rootElement = rootElement;
     this.storage = window.localStorage;
+
+    this.makeLayout(this.rootElement);
+    this.addWeatherMarkup(this.rootElement.querySelector(".weather-data"));
+    this.addSearchForm(this.rootElement.querySelector(".weather-search"));
+
     this.map = new Map(this.rootElement.querySelector(".map-panel"));
-
-    this.city = this.rootElement.querySelector(".weather-data__city");
-    this.t = this.rootElement.querySelector(".weather-data__temp");
-    this.form = this.rootElement.querySelector(".city-form");
-    this.input = this.rootElement.querySelector(".text-field__input");
     this.searchHistory = this.rootElement.querySelector(".search-history");
-
-    this.form.addEventListener("submit", this.onSubmitSearch);
     this.city.innerHTML =
       "Определяем ваше местоположение... Разрешите геолокацию";
-    this.renderSearchHistory();
+
+    this.renderSearchHistory(this.getHistory());
+  }
+
+  makeLayout() {
+    this.rootElement.innerHTML = `
+      <div id="container">
+        <div class="row weather-panel">
+          <div class="weather-wrapper">
+            <div class="weather-data"></div>
+            <div class="weather-search"></div>
+            <div class="search-history"></div>
+          </div>
+        </div>
+        <div class="row map-panel"></div>
+      </div>
+    `;
+  }
+
+  addWeatherMarkup(el) {
+    this.img = document.createElement("img");
+    this.img.src = imgSun;
+    this.img.className = "weather-data__icon";
+
+    this.t = document.createElement("p");
+    this.t.className = "weather-data__temp";
+
+    this.city = document.createElement("p");
+    this.city.className = "weather-data__city";
+
+    el.append(this.img);
+    el.append(this.t);
+    el.append(this.city);
+
+    return el;
+  }
+
+  /* eslint no-param-reassign: ["error", { "props": false }] */
+  addSearchForm(el) {
+    el.innerHTML = `
+      <div class="text-field">
+        <div class="text-field__icon">
+          <form class="city-form">
+            <input
+              class="text-field__input"
+              type="search"
+              name="city"
+              placeholder="Город"
+            />
+          </form>
+          <span class="text-field__aicon">
+            <img src="${imgSearch}" alt="Submit form" />
+          </span>
+        </div>
+      </div>
+    `;
+
+    this.form = this.rootElement.querySelector(".city-form");
+    this.input = this.rootElement.querySelector(".text-field__input");
+    this.form.addEventListener("submit", this.onSubmitSearch);
+
+    return el;
   }
 
   render(data) {
@@ -47,14 +108,12 @@ class Page {
     this.t.innerHTML = `${(celsius > 0 ? "+" : "") + celsius.toFixed()}°C`;
     this.city.innerHTML = data.name;
 
-    this.renderSearchHistory();
+    this.renderSearchHistory(this.getHistory());
     this.map.render(data.coord.lat, data.coord.lon);
   }
 
-  renderSearchHistory() {
+  renderSearchHistory(history) {
     this.searchHistory.innerHTML = "";
-
-    const history = this.getHistory();
 
     history.forEach((city) => {
       const btn = document.createElement("button");
