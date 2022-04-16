@@ -1,4 +1,6 @@
 module.exports = api => {
+  const isTest = api.env('test');
+
   return {
     presets: [
       [
@@ -7,7 +9,7 @@ module.exports = api => {
           useBuiltIns: "entry",
           corejs: "3",
           // caller.target will be the same as the target option from webpack
-          targets: api.caller(caller => caller && caller.target === "node")
+          targets: isTest
             ? { node: "current" }
             : { chrome: "58", ie: "11" }
         }
