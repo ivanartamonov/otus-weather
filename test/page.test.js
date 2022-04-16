@@ -1,4 +1,7 @@
 import Page from "../src/page";
+import weather from "./__mocks__/weather";
+
+jest.mock('../src/weather');
 
 describe('Page', () => {
   let page, data;
@@ -67,6 +70,19 @@ describe('Page', () => {
     expect(buttons[0].innerHTML).toBe(history[0]);
     expect(buttons[1].innerHTML).toBe(history[1]);
     expect(buttons[2].innerHTML).toBe(history[2]);
+  })
+
+  it('show city weather', () => {
+    weather.findCityCoords('London')
+      .then((cityCoords) => weather.get(cityCoords.lat, cityCoords.lon))
+      .then((weatherData) => {
+        console.log(weatherData);
+      })
+      .catch((err) => console.error(err));
+
+    //page.showCityWeather('London');
+    //expect(page.t.innerHTML).toBe('+2°C');
+    //expect(page.city.innerHTML).toBe('London');
   })
 
   it('locks page', () => {
