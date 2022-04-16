@@ -2,6 +2,7 @@ import weather from "./weather";
 import Map from "./map";
 import imgSun from "../assets/images/sun.svg";
 import imgSearch from "../assets/images/search.svg";
+import History from "./history";
 
 class Page {
   // Root HTML element, from witch we find every other elements
@@ -22,14 +23,14 @@ class Page {
   // Html element for rendering previous search history
   searchHistory;
 
-  // LocalStorage object
-  storage;
+  // History of search
+  history;
 
   map;
 
   constructor(rootElement) {
     this.rootElement = rootElement;
-    this.storage = window.localStorage;
+    this.history = new History(window.localStorage);
 
     this.makeLayout(this.rootElement);
     this.addWeatherMarkup(this.rootElement.querySelector(".weather-data"));
@@ -37,10 +38,9 @@ class Page {
 
     this.map = new Map(this.rootElement.querySelector(".map-panel"));
     this.searchHistory = this.rootElement.querySelector(".search-history");
-    this.city.innerHTML =
-      "Определяем ваше местоположение... Разрешите геолокацию";
+    this.city.innerHTML = "Определяем ваше местоположение...";
 
-    this.renderSearchHistory(this.getHistory());
+    this.renderSearchHistory(this.history.get());
   }
 
   makeLayout() {
@@ -108,7 +108,7 @@ class Page {
     this.t.innerHTML = `${(celsius > 0 ? "+" : "") + celsius.toFixed()}°C`;
     this.city.innerHTML = data.name;
 
-    this.renderSearchHistory(this.getHistory());
+    this.renderSearchHistory(this.history.get());
     this.map.render(data.coord.lat, data.coord.lon);
   }
 
@@ -141,23 +141,11 @@ class Page {
       .findCityCoords(cityName)
       .then((cityCoords) => weather.get(cityCoords.lat, cityCoords.lon))
       .then((weatherData) => {
-        this.saveHistory(cityName);
+        this.history.add(cityName);
         this.render(weatherData);
       })
       .catch((err) => console.error(err))
       .finally(() => this.unlockPage());
-  }
-
-  saveHistory(city) {
-    let items = this.getHistory();
-    items = items.filter((item) => item !== city);
-    items.push(city);
-    this.storage.setItem("history", JSON.stringify(items));
-  }
-
-  getHistory() {
-    const history = JSON.parse(this.storage.getItem("history")) || [];
-    return history.reverse();
   }
 
   lockPage() {
