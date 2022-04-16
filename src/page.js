@@ -137,7 +137,7 @@ class Page {
   showCityWeather(cityName) {
     this.lockPage();
 
-    weather
+    return weather
       .findCityCoords(cityName)
       .then((cityCoords) => weather.get(cityCoords.lat, cityCoords.lon))
       .then((weatherData) => {
