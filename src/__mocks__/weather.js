@@ -27,23 +27,15 @@ const cities = {
 
 const weather = {
   get(lat, lon) {
-    return new Promise((resolve, reject) => {
-      if (lat > 0 && lon) {
-        resolve(weatherData);
-      } else {
-        reject(new Error("Weather was not found"));
-      }
-    });
+    return lat > 0 && lon
+      ? Promise.resolve(weatherData)
+      : Promise.reject(new Error("Weather was not found"));
   },
 
   findCityCoords(cityName) {
-    return new Promise((resolve, reject) => {
-      if (cities[cityName]) {
-        resolve(cities[cityName][0]);
-      } else {
-        reject(new Error("City was not found"));
-      }
-    });
+    return cities[cityName]
+      ? Promise.resolve(cities[cityName][0])
+      : Promise.reject(new Error("City was not found"));
   },
 
   toCelsius(fahrenheit) {
