@@ -32,6 +32,7 @@ describe("Weather", () => {
 
   it('fetch weather', async () => {
     global.fetch = jest.fn(() => Promise.resolve({
+      ok: true,
       json: () => Promise.resolve(MOCK_WEATHER)
     }));
 
@@ -41,6 +42,7 @@ describe("Weather", () => {
 
   it('find city coords', async () => {
     global.fetch = jest.fn(() => Promise.resolve({
+      ok: true,
       json: () => Promise.resolve(MOCK_GEO)
     }));
 
