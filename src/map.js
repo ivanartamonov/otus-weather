@@ -3,9 +3,6 @@ class Map {
 
   baseUrl = "https://maps.googleapis.com/maps/api/staticmap";
 
-  // Html Container for Map
-  container;
-
   constructor(htmlContainer) {
     this.container = htmlContainer;
   }
